@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: enzolarosa
 Donate link: http://vincenzolarosa.it/
-Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,servizi,pagina catalogo,elenco servizi,elenco
+Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,catalogo,servizi,elenco
 Requires at least: 3.1
 Tested up to: 3.1.3
 Stable tag: 0.2.2
