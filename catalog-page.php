@@ -3,8 +3,8 @@
 Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
-Author: Vincnzo La Rosa
-Version: 0.2.2
+Author: Vincenzo La Rosa
+Version: 1.0.1
 Author URI: http://www.vincenzolarosa.it 
 */
 /*funzione per creare la tabella*/
