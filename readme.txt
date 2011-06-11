@@ -1,6 +1,6 @@
 === Plugin Name ===
-Contributors: Vincenzo La Rosa
-Donate link: http://example.com/
+Contributors: enzolarosa
+Donate link: http://vincenzolarosa.it/
 Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,servizi,pagina catalogo,elenco servizi,elenco
 Requires at least: 3.1
 Tested up to: 3.1.3
