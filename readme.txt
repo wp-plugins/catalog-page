@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: enzolarosa
-Donate link: http://vincenzolarosa.it/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FDTHU8X339ZLS
 Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,catalogo,servizi,elenco
 Requires at least: 3.1
 Tested up to: 3.1.3
@@ -21,19 +21,10 @@ Scarica l'archivio, ed estrai il file, e successivamente
 1. Attiva il plugin della pagina 'Plugins' la trovi nel menu di WordPress
 1. Aggiungi lo short code [catalog_page] nella pagina dove vuoi compaia il catalogo
 
-== Frequently Asked Questions ==
-
-= Domanda 1 =
-
-risposta 1.
-
-= domanda 2? =
-
-risposta2.
 
 == Screenshots ==
 
-La demo del plugin la trovi su questa pagina <a href="http://www.vincenzolarosa.it/servizi-prodotti">Catalog Page Demo</a>
+La demo del plugin la trovi su questa pagina <a href="http://www.vincenzolarosa.it/servizi-prodotti" target="_blank">Catalog Page Demo</a>
 
 == Changelog ==
 
