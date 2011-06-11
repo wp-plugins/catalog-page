@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Catalog Page
-Plugin URI: <a href="http://www.vincenzolarosa.it/news/wp-vlr/catalog-page.html">http://www.vincenzolarosa.it/news/wp-vlr/catalog-page.html</a>
+Plugin URI: http://www.vincenzolarosa.it/news/wp-vlr/catalog-page.html
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincnzo La Rosa
 Version: 0.1.2
-Author URI: <a href="http://www.vincenzolarosa.it">Vincenzo La Rosa</a> 
+Author URI: http://www.vincenzolarosa.it 
 */
 /*funzione per creare la tabella*/
 function vlr_catalog_page_table()
