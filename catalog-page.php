@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Catalog Page
-Plugin URI: http://www.vincenzolarosa.it/news/wp-vlr/catalog-page.html
+Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincnzo La Rosa
 Version: 0.2.2
