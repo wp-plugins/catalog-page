@@ -6,11 +6,14 @@ Requires at least: 3.1
 Tested up to: 3.1.3
 Stable tag: 1.0.1
 
-Crea facilmente la tua pagina per il catalogo prodotti e servizi nel tuo sito.
+Crea facilmente la pagina per il tuo catalogo di prodotti e di servizi nel tuo sito.
 
 == Description ==
 
-Crea una pagina dedicata al tuo catalogo, e gestiscilo comodamente dal backend
+Grazie all'uso di questo plugin potrai creare aggiungendo un semplice short code all'interno della tua pagina, 
+un catalogo con la lista dei prodotti e dei servizi che offri.
+
+Se hai dei suggerimenti per il plugin <a href="http://www.vincenzolarosa.it/news/wp-vlr/catalog-page.html">lascia un commento su questa pagina</a>.
 
 
 == Installation ==
