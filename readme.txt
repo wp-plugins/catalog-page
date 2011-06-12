@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,catalogo,servizi,elenco
 Requires at least: 3.1
 Tested up to: 3.1.3
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Crea facilmente la pagina per il tuo catalogo di prodotti e di servizi nel tuo sito.
 
@@ -30,7 +30,6 @@ Scarica l'archivio, ed estrai il file, e successivamente
 La demo del plugin la trovi su questa pagina <a href="http://www.vincenzolarosa.it/servizi-prodotti" target="_blank">Catalog Page Demo</a>
 
 == Changelog ==
-
 
 == Upgrade Notice ==
 
