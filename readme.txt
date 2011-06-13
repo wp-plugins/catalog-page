@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,catalogo,servizi,elenco
 Requires at least: 3.1
 Tested up to: 3.1.3
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Crea facilmente la pagina per il tuo catalogo di prodotti e di servizi nel tuo sito.
 
@@ -15,6 +15,7 @@ un catalogo con la lista dei prodotti e dei servizi che offri.
 
 Se hai dei suggerimenti per il plugin <a href="http://www.vincenzolarosa.it/news/wp-vlr/catalog-page.html">lascia un commento su questa pagina</a>.
 
+La demo del plugin la trovi su questa pagina <a href="http://www.vincenzolarosa.it/servizi-prodotti" target="_blank">Catalog Page Demo</a>
 
 == Installation ==
 
@@ -30,9 +31,11 @@ Scarica l'archivio, ed estrai il file, e successivamente
 1. Setting Page 
 1. Front End Page
 
-La demo del plugin la trovi su questa pagina <a href="http://www.vincenzolarosa.it/servizi-prodotti" target="_blank">Catalog Page Demo</a>
-
 == Changelog ==
+= 1.0.4 =
+1. Corretto il bug (like button e send button)
+1. Aggiunta immagine per i dettagli
+1. Possibilità di cambiare le dimensioni dell'imagine in evidenza
 
 = 1.0.3 =
 1. Aggiunta pagina delle opzioni

@@ -4,7 +4,7 @@ Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincenzo La Rosa
-Version: 1.0.3
+Version: 1.0.4
 Author URI: http://www.vincenzolarosa.it 
 */
 /*option default*/
@@ -13,7 +13,11 @@ add_option('catalog_page_fbbutton','1');
 add_option('catalog_page_fbsend','1');
 add_option('catalog_page_twbutton','0');
 add_option('catalog_page_meemibutton','1');
+add_option('catalog_page_dettagli','1');
+add_option('catalog_page_img_w','140');
+add_option('catalog_page_img_h','140');
 /*end option default*/
+
 function catalog_page_table()
 {
 	/*Read option*/
@@ -22,12 +26,15 @@ function catalog_page_table()
 	$catalog_page_fbsend=get_option('catalog_page_fbsend');
 	$catalog_page_twbutton=get_option('catalog_page_twbutton');
 	$catalog_page_meemibutton=get_option('catalog_page_meemibutton');
+	$catalog_page_img_w=get_option('catalog_page_img_w');
+	$catalog_page_img_h=get_option('catalog_page_img_h');
+	$catalog_page_dettagli=get_option('catalog_page_dettagli');
 	/*End read*/
-	
+	$dir = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
 	$args=array('post_type'=>'servizi','posts_per_page'=>$catalog_page_ndispaly);
     $loop=new WP_Query($args);
-    if ($catalog_page_fbbutton=='1'){
-		$text.="<script src=\"http://connect.facebook.net/en_US/all.js#appId=220228844661602&amp;xfbml=1\"></script>";
+    if (($catalog_page_fbbutton=='1')||($catalog_page_fbsend=='1')){
+		$text.="<script src=\"http://connect.facebook.net/en_US/all.js#appId=220228844661602&amp;xfbml=1\"></script><div id=\"fb-root\"></div>";
 	}
 	$text.="<table border=\"0\">";
 	while ($loop->have_posts()):$loop->the_post();
@@ -36,9 +43,9 @@ function catalog_page_table()
             /*Ottiene i dati del costum post*/
             $catalog_id=get_the_ID();
             if (has_post_thumbnail()) {
-                $catalog_img=get_the_post_thumbnail($catalog_id,array(140,140));
+                $catalog_img=get_the_post_thumbnail($catalog_id,array($catalog_page_img_h,$catalog_page_img_w));
             }else{
-                $catalog_img="<img src=\"http://www.vincenzolarosa.it/wp-content/uploads/2011/06/not_found.gif\" width=\"150\" height=\"150\"/>";/*Immagine da far scegliere*/
+                $catalog_img="<img src=\"".$dir."/img/404.gif\" width=\"".$catalog_page_img_w."\" height=\"".$catalog_page_img_h."\"/>";/*Immagine da far scegliere*/
             }
             $catalog_permalink=get_permalink($catalog_id);
             $catalog_title=get_the_title($catalog_id);  
@@ -51,23 +58,22 @@ function catalog_page_table()
             <td><p align=\"center\">".$catalog_content."</p></td>
             </tr><tr>
             <td><p align=\"right\">";
-			if (($catalog_page_fbbutton=='1')&&($catalog_page_fbsend=='1')){
-				$text.="<div id=\"fb-root\"></div>
-				<fb:like href=\"".$catalog_permalink."\" send=\"true\" layout=\"button_count\" width=\"70\" show_faces=\"false\"></fb:like>";
-			}else{
-				if ($catalog_page_fbbutton=='1'){
-					$text.="<div id=\"fb-root\"></div>
-					<fb:like href=\"".$catalog_permalink."\" send=\"false\" layout=\"button_count\" width=\"70\" show_faces=\"false\"></fb:like>";
-				}
+			if ($catalog_page_fbbutton=='1'){
+				$text.="<fb:like href=\"".$catalog_permalink."\" width=\"10\" show_faces=\"false\" layout=\"button_count\" send=\"false\"></fb:like>  ";
+			}
+			if ($catalog_page_fbsend=='1'){
+				$text.="<fb:send href=\"".$catalog_permalink."\"></fb:send>  ";
 			}
 			if ($catalog_page_meemibutton=='1'){
-				$text.="<a href=\"http://meemi.com/meme/".$catalog_title." - ".$catalog_permalink."\" target=\"_blank\"><img src=\"http://meemi.com/stc/i/button/blue_this.png\" /></a>";
+				$text.=" <a href=\"http://meemi.com/meme/".$catalog_title." - ".$catalog_permalink."\" target=\"_blank\"><img src=\"http://meemi.com/stc/i/button/blue_this.png\" /></a>";
 			}
 			if ($catalog_page_twbutton=='1'){
 				$text.="twbutton";
 			}
-			$text.="<a href=\"".$catalog_permalink."\" rel=\"bookmark\" title=\"Dettagli: ".$catalog_title."\">Dettagli</a></p></td>
-            </tr>";
+			if ($catalog_page_dettagli=='1'){
+			$text.="  <a href=\"".$catalog_permalink."\" rel=\"bookmark\" title=\"Dettagli: ".$catalog_title."\"><img src=\"".$dir."/img/button-dettagli.gif\" /></a></p></td>";
+			}
+			$text.="</tr>";
 	endwhile;
 	$text.="</table><br />";
 	return $text;
@@ -100,21 +106,33 @@ function catalog_page_option()
 {
 	$action=$_POST['action'];
 	if ($action=='update' ) {
-		if (get_option('catalog_page_fbbutton')!=$_POST['fbbutton'])
+		if (get_option('catalog_page_fbbutton')!=$_POST['catalog_page_fbbutton'])
 		{
 			update_option('catalog_page_fbbutton',$_POST['fbbutton']);
 		}
-		if (get_option('catalog_page_fbsend')!=$_POST['fbsend'])
+		if (get_option('catalog_page_fbsend')!=$_POST['catalog_page_fbsend'])
 		{
 			update_option('catalog_page_fbsend',$_POST['fbsend']);
 		}
-		if (get_option('catalog_page_meemibutton')!=$_POST['meemibutton'])
+		if (get_option('catalog_page_meemibutton')!=$_POST['catalog_page_meemibutton'])
 		{
 			update_option('catalog_page_meemibutton',$_POST['meemibutton']);
 		}
-		if (get_option('catalog_page_ndisplay')!=$_POST['ndisplay'])
+		if (get_option('catalog_page_ndisplay')!=$_POST['catalog_page_ndisplay'])
 		{
-		update_option('catalog_page_ndisplay',$_POST['ndisplay']);
+		update_option('catalog_page_ndisplay',$_POST['catalog_page_ndisplay']);
+		}
+		if (get_option('catalog_page_img_h')!=$_POST['catalog_page_img_h'])
+		{
+		update_option('catalog_page_img_h',$_POST['catalog_page_img_h']);
+		}
+		if (get_option('catalog_page_img_w')!=$_POST['catalog_page_img_w'])
+		{
+		update_option('catalog_page_img_w',$_POST['catalog_page_img_w']);
+		}
+		if (get_option('catalog_page_dettagli')!=$_POST['catalog_page_dettagli'])
+		{
+		update_option('catalog_page_dettagli',$_POST['catalog_page_dettagli']);
 		}
 ?>
 <div id="message" class="updated fade">
@@ -141,17 +159,25 @@ function catalog_page_option()
 				?>
 			</select>
 			<br />
-			<h3>Social Button</h3>
+			<h3>Dimensione Immagine</h3>
+			<table border="0">
+			<tr>
+			<td>Larghezza</td><td><input type="text" name="catalog_page_img_w" value="<? echo get_option('catalog_page_img_w');?>" size="5"/></td>
+			<td>Altezza</td><td><input type="text" name="catalog_page_img_h" value="<? echo get_option('catalog_page_img_h'); ?>" size="5"/></td>
+			</tr>
+			</table>
+			<h3>Button</h3>
 			<table border="0">
 			<tr>
 			<td><input type="checkbox" name="catalog_page_fbbutton" value="1" <? if (get_option('catalog_page_fbbutton')=='1'){?> checked="true" <?}?> value="Like Button">  Like Button</td>
 			<td><input type="checkbox" name="catalog_page_fbsend" value="1" <? if (get_option('catalog_page_fbsend')=='1'){?> checked="true" <?}?> value="Send Button">  Send Button</td>
 			<td><input type="checkbox" name="catalog_page_meemibutton" value="1" <? if (get_option('catalog_page_meemibutton')=='1'){?> checked="true" <?}?> value="Meemi Button">  Meemi Button</td>
+			<td><input type="checkbox" name="catalog_page_dettagli" value="1" <? if (get_option('catalog_page_dettagli')=='1'){?> checked="true" <?}?> value="Dettagli Button">  Mostra dettagli</td>
 			</tr>
 			</table>
 			<p class="submit"><input type="submit" value="<?php _e('Save') ?>" class="button-primary" name="catalog_page_save"/></p>
 			<?php wp_nonce_field('update-options'); ?>
-			<input type="hidden" name="page_options" value="catalog_page_fbbutton,catalog_page_fbsend,catalog_page_meemibutton,catalog_page_ndisplay">
+			<input type="hidden" name="page_options" value="catalog_page_dettagli,catalog_page_fbbutton,catalog_page_fbsend,catalog_page_meemibutton,catalog_page_ndisplay,catalog_page_img_h,catalog_page_img_w">
 			<input type="hidden" name="action" value="update" />
 		</form>
 	<h2>Plugin Info</h2>
@@ -173,8 +199,8 @@ function catalog_page_option()
 <?
 }
 
+
 add_action('admin_menu', 'catalog_page_menu');
-//add_action('init','catalog_page_option');
 add_action('init','catalog_page_post_type'); /*aggiunge il tipo di post */
 add_shortcode('catalog_page', 'catalog_page_table'); /*aggiunge lo short code [catalog_page]*/
 ?>
