@@ -4,23 +4,39 @@ Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincenzo La Rosa
-Version: 1.0.2
+Version: 1.0.3
 Author URI: http://www.vincenzolarosa.it 
 */
-/*funzione per creare la tabella*/
+/*option default*/
+add_option('catalog_page_ndisplay','10');
+add_option('catalog_page_fbbutton','1');
+add_option('catalog_page_fbsend','1');
+add_option('catalog_page_twbutton','0');
+add_option('catalog_page_meemibutton','1');
+/*end option default*/
 function catalog_page_table()
 {
-	$args=array('post_type'=>'servizi','posts_per_page'=>10); /*mostra 10 servizi per pagina (multi pagina in arrivo)*/
-        $loop=new WP_Query($args);
-        $text="<script src=\"http://connect.facebook.net/en_US/all.js#appId=220228844661602&amp;xfbml=1\"></script>
-	<table border=\"0\">";
+	/*Read option*/
+	$catalog_page_ndispaly=get_option('catalog_page_ndisplay');
+	$catalog_page_fbbutton=get_option('catalog_page_fbbutton');
+	$catalog_page_fbsend=get_option('catalog_page_fbsend');
+	$catalog_page_twbutton=get_option('catalog_page_twbutton');
+	$catalog_page_meemibutton=get_option('catalog_page_meemibutton');
+	/*End read*/
+	
+	$args=array('post_type'=>'servizi','posts_per_page'=>$catalog_page_ndispaly);
+    $loop=new WP_Query($args);
+    if ($catalog_page_fbbutton=='1'){
+		$text.="<script src=\"http://connect.facebook.net/en_US/all.js#appId=220228844661602&amp;xfbml=1\"></script>";
+	}
+	$text.="<table border=\"0\">";
 	while ($loop->have_posts()):$loop->the_post();
             global $more;   
             $more=0;
             /*Ottiene i dati del costum post*/
             $catalog_id=get_the_ID();
             if (has_post_thumbnail()) {
-                $catalog_img=get_the_post_thumbnail($catalog_id,array(130,130));
+                $catalog_img=get_the_post_thumbnail($catalog_id,array(140,140));
             }else{
                 $catalog_img="<img src=\"http://www.vincenzolarosa.it/wp-content/uploads/2011/06/not_found.gif\" width=\"150\" height=\"150\"/>";/*Immagine da far scegliere*/
             }
@@ -34,13 +50,26 @@ function catalog_page_table()
             </p></td></tr><tr>
             <td><p align=\"center\">".$catalog_content."</p></td>
             </tr><tr>
-            <td><p align=\"right\"><div id=\"fb-root\"></div>
-            <fb:like href=\"".$catalog_permalink."\" send=\"true\" layout=\"button_count\" width=\"70\" show_faces=\"false\"></fb:like>
-            <a href=\"http://meemi.com/meme/".$catalog_title." - ".$catalog_permalink."\" target=\"_blank\"><img src=\"http://meemi.com/stc/i/button/blue_this.png\" /></a>
-			<a href=\"".$catalog_permalink."\" rel=\"bookmark\" title=\"Dettagli: ".$catalog_title."\">Dettagli</a></p></td>
+            <td><p align=\"right\">";
+			if (($catalog_page_fbbutton=='1')&&($catalog_page_fbsend=='1')){
+				$text.="<div id=\"fb-root\"></div>
+				<fb:like href=\"".$catalog_permalink."\" send=\"true\" layout=\"button_count\" width=\"70\" show_faces=\"false\"></fb:like>";
+			}else{
+				if ($catalog_page_fbbutton=='1'){
+					$text.="<div id=\"fb-root\"></div>
+					<fb:like href=\"".$catalog_permalink."\" send=\"false\" layout=\"button_count\" width=\"70\" show_faces=\"false\"></fb:like>";
+				}
+			}
+			if ($catalog_page_meemibutton=='1'){
+				$text.="<a href=\"http://meemi.com/meme/".$catalog_title." - ".$catalog_permalink."\" target=\"_blank\"><img src=\"http://meemi.com/stc/i/button/blue_this.png\" /></a>";
+			}
+			if ($catalog_page_twbutton=='1'){
+				$text.="twbutton";
+			}
+			$text.="<a href=\"".$catalog_permalink."\" rel=\"bookmark\" title=\"Dettagli: ".$catalog_title."\">Dettagli</a></p></td>
             </tr>";
 	endwhile;
-	$text.="</table>";
+	$text.="</table><br />";
 	return $text;
 }
 function catalog_page_post_type()
@@ -62,6 +91,90 @@ function catalog_page_post_type()
   'parent' => 'Parent Servizi',
 ),) );	
 }
+function catalog_page_menu()
+{   
+	add_submenu_page('edit.php?post_type=servizi','Catalog Page Opzioni', 'Opzioni', 'manage_options', 'opzioni', 'catalog_page_option');
+	//add_action( 'admin_init', 'catalog_page_register_mysettings' );
+}
+function catalog_page_option()
+{
+	$action=$_POST['action'];
+	if ($action=='update' ) {
+		if (get_option('catalog_page_fbbutton')!=$_POST['fbbutton'])
+		{
+			update_option('catalog_page_fbbutton',$_POST['fbbutton']);
+		}
+		if (get_option('catalog_page_fbsend')!=$_POST['fbsend'])
+		{
+			update_option('catalog_page_fbsend',$_POST['fbsend']);
+		}
+		if (get_option('catalog_page_meemibutton')!=$_POST['meemibutton'])
+		{
+			update_option('catalog_page_meemibutton',$_POST['meemibutton']);
+		}
+		if (get_option('catalog_page_ndisplay')!=$_POST['ndisplay'])
+		{
+		update_option('catalog_page_ndisplay',$_POST['ndisplay']);
+		}
+?>
+<div id="message" class="updated fade">
+  <p><strong>
+    <?php _e('Options saved.'); ?>
+    </strong></p>
+</div>
+<? } ?>
+<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=174427065949905&amp;xfbml=1"></script><script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+<div class="wrap">
+	<h2>Catalog Page Opzioni</h2>
+		<form method="post" action="options.php">
+			Quanti servizi e prodotti vuoi mostrare per ogni pagina? 
+			<select name="catalog_page_ndisplay">
+				<option value="-1" <?if (get_option('catalog_page_ndisplay')=='-1'){echo "selected=\"selected\"";}?>>Tutti</option>
+				<? 
+				for ($i=1;$i<17;$i++){
+				echo "<option value=\"".$i."\"";
+				if ($i==get_option('catalog_page_ndisplay')){
+					echo " selected=\"selected\"";
+				}
+				echo ">".$i."</option>";				
+				}
+				?>
+			</select>
+			<br />
+			<h3>Social Button</h3>
+			<table border="0">
+			<tr>
+			<td><input type="checkbox" name="catalog_page_fbbutton" value="1" <? if (get_option('catalog_page_fbbutton')=='1'){?> checked="true" <?}?> value="Like Button">  Like Button</td>
+			<td><input type="checkbox" name="catalog_page_fbsend" value="1" <? if (get_option('catalog_page_fbsend')=='1'){?> checked="true" <?}?> value="Send Button">  Send Button</td>
+			<td><input type="checkbox" name="catalog_page_meemibutton" value="1" <? if (get_option('catalog_page_meemibutton')=='1'){?> checked="true" <?}?> value="Meemi Button">  Meemi Button</td>
+			</tr>
+			</table>
+			<p class="submit"><input type="submit" value="<?php _e('Save') ?>" class="button-primary" name="catalog_page_save"/></p>
+			<?php wp_nonce_field('update-options'); ?>
+			<input type="hidden" name="page_options" value="catalog_page_fbbutton,catalog_page_fbsend,catalog_page_meemibutton,catalog_page_ndisplay">
+			<input type="hidden" name="action" value="update" />
+		</form>
+	<h2>Plugin Info</h2>
+	<p>Usa lo shortcode <code>[catalog_page]</code> per inserire la lista dei servizi nella pagina.</p>
+	<h2>Support Plugin</h2>
+	<p>
+	<table border="0">
+	<tr>
+	<td>Clicca Mi Piace</td>
+	<td align="center"><fb:like href="http://www.facebook.com/vincenzolarosa.it" send="false" layout="button_count" width="150" show_faces="true" font="verdana"></fb:like></td>
+	<td>Seguimi su twitter</td>
+	<td align="center"><a href="http://twitter.com/enzolarosa" class="twitter-follow-button" data-lang="it">Seguimi</a></td>
+	</tr>
+	</table>
+	</p>
+	<h2>Chi usa il plugin</h2>
+	<p><fb:facepile href="www.facebook.com/vincenzolarosa.it" width="600" max_rows="1"></fb:facepile></p>
+</div>
+<?
+}
+
+add_action('admin_menu', 'catalog_page_menu');
+//add_action('init','catalog_page_option');
 add_action('init','catalog_page_post_type'); /*aggiunge il tipo di post */
 add_shortcode('catalog_page', 'catalog_page_table'); /*aggiunge lo short code [catalog_page]*/
 ?>
