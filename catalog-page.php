@@ -4,7 +4,7 @@ Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincenzo La Rosa
-Version: 1.1
+Version: 1.1.1
 Author URI: http://www.vincenzolarosa.it 
 */
 /*option default*/
@@ -96,7 +96,7 @@ function catalog_page_table()
 	
 	if ($max > 1) $text.= '<div class="navigation">';
 	if ($total == 1 && $max > 1) $pages = '<span class="pages">Pagina ' . $current . ' di ' . $max . '</span>'."\r\n";
-	$text.= $pages . paginate_links($a);
+	$text.= $pages."<br />".paginate_links($a);
 	if ($max > 1) $text.='</div>';
 
 	//end page navigation code
