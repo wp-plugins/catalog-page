@@ -2,9 +2,9 @@
 Contributors: enzolarosa
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FDTHU8X339ZLS
 Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,catalogo,servizi,elenco
-Requires at least: 3.1
+Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 1.0.4
+Stable tag: 1.1
 
 Crea facilmente la pagina per il tuo catalogo di prodotti e di servizi nel tuo sito.
 
@@ -30,8 +30,11 @@ Scarica l'archivio, ed estrai il file, e successivamente
 
 1. Setting Page 
 1. Front End Page
-
+1. Barra di navigazione tra i servizi
 == Changelog ==
+= 1.0.5 =
+1. Aggiunta barra di navigazione per i servizi
+
 = 1.0.4 =
 1. Corretto il bug (like button e send button)
 1. Aggiunta immagine per i dettagli
