@@ -4,7 +4,7 @@ Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincenzo La Rosa
-Version: 1.1.1
+Version: 1.1.2
 Author URI: http://www.vincenzolarosa.it 
 */
 /*option default*/
@@ -15,9 +15,10 @@ add_option('catalog_page_meemibutton','1');
 add_option('catalog_page_dettagli','1');
 add_option('catalog_page_img_w','140');
 add_option('catalog_page_img_h','140');
+add_option('catalog_page_css','');
 /*end option default*/
-function catalog_page_table()
-{
+
+function catalog_page_table(){
 	/*Read option*/
 	$catalog_page_ndispaly=get_option('catalog_page_ndisplay');
 	$catalog_page_fbbutton=get_option('catalog_page_fbbutton');
@@ -29,7 +30,6 @@ function catalog_page_table()
 	$catalog_page_dettagli=get_option('catalog_page_dettagli');
 	/*End read*/
 	$dir = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
-    
 	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 	$args=array('post_type'=>'servizi','posts_per_page'=>$catalog_page_ndispaly,'paged'=>$paged);
 	$loop=new WP_Query($args);
@@ -78,7 +78,6 @@ function catalog_page_table()
 		endwhile;
 	$text.="</table>";
 	//page navigation code
-	
 	global $wp_rewrite;
 	$pages = '';
 	$max = $loop->max_num_pages;
@@ -87,24 +86,20 @@ function catalog_page_table()
 	if( !empty($loop->query_vars['s']) ) $a['add_args'] = array( 's' => get_query_var( 's' ) );
 	$a['total'] = $max;
 	$a['current'] = $current;
-	
 	$total = 1; //1 - display the text "Page N of N", 0 - not display
 	$a['mid_size'] = 5; //how many links to show on the left and right of the current
 	$a['end_size'] = 1; //how many links to show in the beginning and end
 	$a['prev_text'] = '&laquo; Indietro'; //text of the "Previous page" link
 	$a['next_text'] = 'Avanti &raquo;'; //text of the "Next page" link
-	
 	if ($max > 1) $text.= '<div class="navigation">';
 	if ($total == 1 && $max > 1) $pages = '<span class="pages">Pagina ' . $current . ' di ' . $max . '</span>'."\r\n";
 	$text.= $pages."<br />".paginate_links($a);
 	if ($max > 1) $text.='</div>';
-
 	//end page navigation code
 	
 	return $text;
 }
-function catalog_page_post_type()
-{
+function catalog_page_post_type(){
 	register_post_type('Servizi', array(	'label' => 'Servizi','description' => 'Raccolta di tutti i servizi e prodotti offerti da VincenzoLaRosa.it','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => 'servizi'),'query_var' => true,'supports' => array('title','editor','comments','thumbnail','author',),'labels' => array (
   'name' => 'Servizi',
   'singular_name' => 'Servizi',
@@ -122,25 +117,23 @@ function catalog_page_post_type()
   'parent' => 'Parent Servizi',
 ),) );	
 }
-function catalog_page_menu()
-{   
+function catalog_page_menu(){   
 	add_submenu_page('edit.php?post_type=servizi','Catalog Page Opzioni', 'Opzioni', 'manage_options', 'opzioni', 'catalog_page_option');
 }
-function catalog_page_option()
-{
+function catalog_page_option(){
 	$action=$_POST['action'];
 	if ($action=='update' ) {
 		if (get_option('catalog_page_fbbutton')!=$_POST['catalog_page_fbbutton'])
 		{
-			update_option('catalog_page_fbbutton',$_POST['fbbutton']);
+			update_option('catalog_page_fbbutton',$_POST['catalog_page_fbbutton']);
 		}
 		if (get_option('catalog_page_fbsend')!=$_POST['catalog_page_fbsend'])
 		{
-			update_option('catalog_page_fbsend',$_POST['fbsend']);
+			update_option('catalog_page_fbsend',$_POST['catalog_page_fbsend']);
 		}
 		if (get_option('catalog_page_meemibutton')!=$_POST['catalog_page_meemibutton'])
 		{
-			update_option('catalog_page_meemibutton',$_POST['meemibutton']);
+			update_option('catalog_page_meemibutton',$_POST['catalog_page_meemibutton']);
 		}
 		if (get_option('catalog_page_ndisplay')!=$_POST['catalog_page_ndisplay'])
 		{
@@ -157,6 +150,10 @@ function catalog_page_option()
 		if (get_option('catalog_page_dettagli')!=$_POST['catalog_page_dettagli'])
 		{
 			update_option('catalog_page_dettagli',$_POST['catalog_page_dettagli']);
+		}
+		if (get_option('catalog_page_css')!=$_POST['catalog_page_css'])
+		{
+			update_option('catalog_page_css',$_POST['catalog_page_css']);
 		}
 ?>
 <div id="message" class="updated fade">
@@ -181,7 +178,10 @@ function catalog_page_option()
 					echo ">".$i."</option>";				
 				}?>
 			</select>
-			<br />
+			<br /><h3>Css Page Navi</h3>
+			<p>Class: navigation (<code>< div class = "navigation" ></code>)<br />
+			Class: Pages (<code>< span class = "pages" >Pagina 1 di 2< / span ></code><br />
+			<textarea name="catalog_page_css" rows="3" cols="30"><? echo get_option('catalog_page_css'); ?></textarea></p>
 			<h3>Dimensione Immagine</h3>
 			<table border="0">
 			<tr>
@@ -200,28 +200,28 @@ function catalog_page_option()
 			</table>
 			<p class="submit"><input type="submit" value="<?php _e('Save') ?>" class="button-primary" name="catalog_page_save"/></p>
 			<?php wp_nonce_field('update-options'); ?>
-			<input type="hidden" name="page_options" value="catalog_page_dettagli,catalog_page_fbbutton,catalog_page_fbsend,catalog_page_meemibutton,catalog_page_ndisplay,catalog_page_img_h,catalog_page_img_w">
+			<input type="hidden" name="page_options" value="catalog_page_css,catalog_page_dettagli,catalog_page_fbbutton,catalog_page_fbsend,catalog_page_meemibutton,catalog_page_ndisplay,catalog_page_img_h,catalog_page_img_w">
 			<input type="hidden" name="action" value="update" />
 		</form>
 	<h2>Plugin Info</h2>
 	<p>Usa lo shortcode <code>[catalog_page]</code> per inserire la lista dei servizi nella pagina.</p>
 	<h2>Support Plugin</h2>
-	<p>
-	<table border="0">
-	<tr>
+	<p><table border="0"><tr>
 	<td>Clicca Mi Piace</td>
 	<td><fb:like href="http://www.facebook.com/vincenzolarosa.it" send="false" layout="button_count" width="150" show_faces="false" font="verdana"></fb:like></td>
 	<td>Seguimi su twitter</td>
 	<td><a href="http://twitter.com/enzolarosa" class="twitter-follow-button" data-lang="it">Seguimi</a></td>
-	</tr>
-	</table>
-	</p>
+	</tr></table></p>
 </div>
 <?
 }
-
 function catalog_style_css(){
-
+	echo "<!--Catalog Page Css -->
+<style type=\"text/css\">
+".get_option('catalog_page_css')."
+</style>
+<!--End Catalog Page Css-->
+";
 }
 
 add_action('wp_head', 'catalog_style_css');
