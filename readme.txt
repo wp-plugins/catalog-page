@@ -34,7 +34,11 @@ Scarica l'archivio, ed estrai il file, e successivamente
 1. Barra di navigazione tra i servizi.
 
 == Changelog ==
-= 1.0.5 =
+
+= 1.1.2 =
+1. Aggiunta la possibilità di cambiare lo stile alla barra di navigazione 
+
+= 1.1 =
 1. Aggiunta barra di navigazione per i servizi
 
 = 1.0.4 =
