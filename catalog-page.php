@@ -72,9 +72,9 @@ function catalog_page_table(){
 				$text.="twbutton";
 			}
 			if ($catalog_page_dettagli=='1'){
-			$text.="  <a href=\"".$catalog_permalink."\" rel=\"bookmark\" title=\"Dettagli: ".$catalog_title."\"><img src=\"".$dir."/img/button-dettagli.gif\" /></a></p></td>";
+			$text.="  <a href=\"".$catalog_permalink."\" rel=\"bookmark\" title=\"Dettagli: ".$catalog_title."\"><img src=\"".$dir."/img/button-dettagli.gif\" /></a>";
 			}
-			$text.="</tr>";
+			$text.="</p></td></tr>";
 		endwhile;
 	$text.="</table>";
 	//page navigation code
@@ -178,10 +178,15 @@ function catalog_page_option(){
 					echo ">".$i."</option>";				
 				}?>
 			</select>
-			<br /><h3>Css Page Navi</h3>
-			<p>Class: navigation (<code>< div class = "navigation" ></code>)<br />
-			Class: Pages (<code>< span class = "pages" >Pagina 1 di 2< / span ></code><br />
-			<textarea name="catalog_page_css" rows="3" cols="30"><? echo get_option('catalog_page_css'); ?></textarea></p>
+			<br />
+			<h3>Css Page Navi</h3>
+			<p>Per personalizzare la barra di navigazione puoi usare i seguente tag <code>navigation</code> è riferito all'elemnto <b>div</b><br />
+			e <code>pages</code> riferito invece all'elemento <b>span</b>
+			</p>
+			<textarea name="catalog_page_css" rows="3" cols="30">
+			<? echo get_option('catalog_page_css'); ?>
+			</textarea>
+			<br />
 			<h3>Dimensione Immagine</h3>
 			<table border="0">
 			<tr>
@@ -220,10 +225,9 @@ function catalog_style_css(){
 <style type=\"text/css\">
 ".get_option('catalog_page_css')."
 </style>
-<!--End Catalog Page Css-->
-";
-}
+<!--End Catalog Page Css-->";
 
+}
 add_action('wp_head', 'catalog_style_css');
 add_action('admin_menu', 'catalog_page_menu');
 add_action('init','catalog_page_post_type'); /*aggiunge il tipo di post */
