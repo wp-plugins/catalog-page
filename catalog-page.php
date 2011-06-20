@@ -89,10 +89,10 @@ function catalog_page_table(){
 	$total = 1; //1 - display the text "Page N of N", 0 - not display
 	$a['mid_size'] = 5; //how many links to show on the left and right of the current
 	$a['end_size'] = 1; //how many links to show in the beginning and end
-	$a['prev_text'] = '&laquo; Indietro'; //text of the "Previous page" link
-	$a['next_text'] = 'Avanti &raquo;'; //text of the "Next page" link
+	$a['prev_text'] = '&laquo; '.__('Indietro','catalog_page'); //text of the "Previous page" link
+	$a['next_text'] = __('Avanti','catalog_page').' &raquo;'; //text of the "Next page" link
 	if ($max > 1) $text.= '<div class="navigation">';
-	if ($total == 1 && $max > 1) $pages = '<span class="pages">Pagina ' . $current . ' di ' . $max . '</span>'."\r\n";
+	if ($total == 1 && $max > 1) $pages = '<span class="pages">'.__('Pagina','catalog_page'). $current .' '.__('di','catalog_page').' '.$max.'</span>'."\r\n";
 	$text.= $pages."<br />".paginate_links($a);
 	if ($max > 1) $text.='</div>';
 	//end page navigation code
@@ -100,25 +100,25 @@ function catalog_page_table(){
 	return $text;
 }
 function catalog_page_post_type(){
-	register_post_type('Servizi', array(	'label' => 'Servizi','description' => 'Raccolta di tutti i servizi e prodotti offerti da VincenzoLaRosa.it','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => 'servizi'),'query_var' => true,'supports' => array('title','editor','comments','thumbnail','author',),'labels' => array (
+	register_post_type('Servizi', array('label' => 'Servizi','description' => 'Raccolta di tutti i servizi e prodotti offerti.','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => 'servizi'),'query_var' => true,'supports' => array('title','editor','comments','thumbnail','author',),'labels' => array (
   'name' => 'Servizi',
-  'singular_name' => 'Servizi',
-  'menu_name' => 'Servizi',
-  'add_new' => 'Nuovo Servizio',
-  'add_new_item' => 'Aggiungi Nuovo Servizio',
-  'edit' => 'Modifica',
-  'edit_item' => 'Modifica Servizio',
-  'new_item' => 'Nuovo Servizio',
-  'view' => 'Mostra',
-  'view_item' => 'Mostra servizio',
-  'search_items' => 'Cerca Servizio',
-  'not_found' => 'Servizio non trovato',
-  'not_found_in_trash' => 'Nessun servizio trovato nel cestino',
+  'singular_name' => __('Servizi','catalog_page'),
+  'menu_name' => __('Servizi','catalog_page'),
+  'add_new' => __('Nuovo Servizio','catalog_page'),
+  'add_new_item' => __('Aggiungi nuovo servizio','catalog_page'),
+  'edit' => __('Modifica','catalog_page'),
+  'edit_item' => __('Modifica servizio','catalog_page'),
+  'new_item' => __('Nuovo servizio','catalog_page'),
+  'view' => __('Mostra','catalog_page'),
+  'view_item' => __('Mostra servizio','catalog_page'),
+  'search_items' => __('Cerca Servizio','catalog_page'),
+  'not_found' => __('Servizio non trovato','catalog_page'),
+  'not_found_in_trash' => __('Nessun servizio trovato nel cestino','catalog_page'),
   'parent' => 'Parent Servizi',
 ),) );	
 }
 function catalog_page_menu(){   
-	add_submenu_page('edit.php?post_type=servizi','Catalog Page Opzioni', 'Opzioni', 'manage_options', 'opzioni', 'catalog_page_option');
+	add_submenu_page('edit.php?post_type=servizi','Catalog Page Opzioni', __('Opzioni','catalog_page'), 'manage_options', 'opzioni', 'catalog_page_option');
 }
 function catalog_page_option(){
 	$action=$_POST['action'];
@@ -164,9 +164,9 @@ function catalog_page_option(){
 <? } ?>
 <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=174427065949905&amp;xfbml=1"></script><script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 <div class="wrap">
-	<h2>Catalog Page Opzioni</h2>
+	<h2>Catalog Page <? _e('Opzioni','catalog_page'); ?></h2>
 		<form method="post" action="options.php">
-			Quanti servizi e prodotti vuoi mostrare per ogni pagina? 
+			<? _e('Quanti servizi e prodotti vuoi mostrare per ogni pagina?','catalog_page'); ?>
 			<select name="catalog_page_ndisplay">
 				<option value="-1" <?if (get_option('catalog_page_ndisplay')=='-1'){echo "selected=\"selected\"";}?>>Tutti</option>
 				<?
@@ -180,27 +180,27 @@ function catalog_page_option(){
 			</select>
 			<br />
 			<h3>Css Page Navi</h3>
-			<p>Per personalizzare la barra di navigazione puoi usare i seguente tag <code>navigation</code> è riferito all'elemnto <b>div</b><br />
-			e <code>pages</code> riferito invece all'elemento <b>span</b>
+			<p><? _e('Per personalizzare la barra di navigazione puoi usare i seguente tag <code>navigation</code> è riferito all\'elemnto','catalog_page');?> <b>div</b><br />
+			<? _e('e','catalog_page');?> <code>pages</code> <? _e('riferito invece all\'elemento','catalog_page');?> <b>span</b>
 			</p>
 			<textarea name="catalog_page_css" rows="3" cols="30">
 			<? echo get_option('catalog_page_css'); ?>
 			</textarea>
 			<br />
-			<h3>Dimensione Immagine</h3>
+			<h3><? _e('Dimensione Immagine','catalog_page');?></h3>
 			<table border="0">
 			<tr>
-			<td>Larghezza</td><td><input type="text" name="catalog_page_img_w" value="<? echo get_option('catalog_page_img_w');?>" size="5"/></td>
-			<td>Altezza</td><td><input type="text" name="catalog_page_img_h" value="<? echo get_option('catalog_page_img_h'); ?>" size="5"/></td>
+			<td><? _e('Larghezza','catalog_page');?></td><td><input type="text" name="catalog_page_img_w" value="<? echo get_option('catalog_page_img_w');?>" size="5"/></td>
+			<td><? _e('Altezza','catalog_page');?></td><td><input type="text" name="catalog_page_img_h" value="<? echo get_option('catalog_page_img_h'); ?>" size="5"/></td>
 			</tr>
 			</table>
-			<h3>Button</h3>
+			<h3><? _e('Social Button','catalog_page');?></h3>
 			<table border="0">
 			<tr>
-			<td><input type="checkbox" name="catalog_page_fbbutton" value="1" <? if (get_option('catalog_page_fbbutton')=='1'){?> checked="true" <?}?> value="Like Button">  Like Button</td>
-			<td><input type="checkbox" name="catalog_page_fbsend" value="1" <? if (get_option('catalog_page_fbsend')=='1'){?> checked="true" <?}?> value="Send Button">  Send Button</td>
-			<td><input type="checkbox" name="catalog_page_meemibutton" value="1" <? if (get_option('catalog_page_meemibutton')=='1'){?> checked="true" <?}?> value="Meemi Button">  Meemi Button</td>
-			<td><input type="checkbox" name="catalog_page_dettagli" value="1" <? if (get_option('catalog_page_dettagli')=='1'){?> checked="true" <?}?> value="Dettagli Button">  Mostra dettagli</td>
+			<td><input type="checkbox" name="catalog_page_fbbutton" value="1" <? if (get_option('catalog_page_fbbutton')=='1'){?> checked="true" <?}?> value="Like Button">  <?_e('Like Button','catalog_page');?></td>
+			<td><input type="checkbox" name="catalog_page_fbsend" value="1" <? if (get_option('catalog_page_fbsend')=='1'){?> checked="true" <?}?> value="Send Button">  <?_e('Send Button','catalog_page');?></td>
+			<td><input type="checkbox" name="catalog_page_meemibutton" value="1" <? if (get_option('catalog_page_meemibutton')=='1'){?> checked="true" <?}?> value="Meemi Button">  <?_e('Meemi Button','catalog_page');?></td>
+			<td><input type="checkbox" name="catalog_page_dettagli" value="1" <? if (get_option('catalog_page_dettagli')=='1'){?> checked="true" <?}?> value="Dettagli Button">  <?_e('Mostra dettagli','catalog_page');?></td>
 			</tr>
 			</table>
 			<p class="submit"><input type="submit" value="<?php _e('Save') ?>" class="button-primary" name="catalog_page_save"/></p>
@@ -208,13 +208,13 @@ function catalog_page_option(){
 			<input type="hidden" name="page_options" value="catalog_page_css,catalog_page_dettagli,catalog_page_fbbutton,catalog_page_fbsend,catalog_page_meemibutton,catalog_page_ndisplay,catalog_page_img_h,catalog_page_img_w">
 			<input type="hidden" name="action" value="update" />
 		</form>
-	<h2>Plugin Info</h2>
-	<p>Usa lo shortcode <code>[catalog_page]</code> per inserire la lista dei servizi nella pagina.</p>
-	<h2>Support Plugin</h2>
+	<h2><? _e('Informazioni Plugin','catalog_page');?></h2>
+	<p><? _e('Usa lo shortcode <code>[catalog_page]</code> per inserire la lista dei servizi nella pagina.','catalog_page');?></p>
+	<h2><? _e('Support Plugin','catalog_page');?></h2>
 	<p><table border="0"><tr>
-	<td>Clicca Mi Piace</td>
+	<td><?_e('Clicca Mi Piace','catalog_page');?></td>
 	<td><fb:like href="http://www.facebook.com/vincenzolarosa.it" send="false" layout="button_count" width="150" show_faces="false" font="verdana"></fb:like></td>
-	<td>Seguimi su twitter</td>
+	<td><?_e('Seguimi su twitter','catalog_page');?></td>
 	<td><a href="http://twitter.com/enzolarosa" class="twitter-follow-button" data-lang="it">Seguimi</a></td>
 	</tr></table></p>
 </div>
