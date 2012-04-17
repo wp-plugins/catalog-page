@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: enzolarosa
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FDTHU8X339ZLS
+Donate link: https://www.paypal.com/it/cgi-bin/webscr?cmd=_flow&SESSION=7Yn4eMImzm5DuLJhiNtQ5_km8ldRLh8CFh9fGSsfIrUar7InkEIC52lstv4&dispatch=5885d80a13c0db1f8e263663d3faee8dcbcd55a50598f04d34b4bf5056870803
 Tags: ecommerce,catalog,page,catalog page,list,service,prodoct,catalogo,servizi,elenco
 Requires at least: 3.0
 Tested up to: 3.3.1
