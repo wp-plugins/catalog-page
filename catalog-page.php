@@ -4,7 +4,7 @@ Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincenzo La Rosa
-Version: 1.1.2
+Version: 1.1.2.1
 Author URI: http://www.vincenzolarosa.it 
 */
 /*option default*/
@@ -180,7 +180,7 @@ function catalog_page_option(){
 			</select>
 			<br />
 			<h3>Css Page Navi</h3>
-			<p><? _e('Per personalizzare la barra di navigazione puoi usare i seguente tag <code>navigation</code> è riferito all\'elemnto','catalog_page');?> <b>div</b><br />
+			<p><? _e('Per personalizzare la barra di navigazione puoi usare i seguente tag <code>navigation</code> riferito all\'elemnto','catalog_page');?> <b>div</b><br />
 			<? _e('e','catalog_page');?> <code>pages</code> <? _e('riferito invece all\'elemento','catalog_page');?> <b>span</b>
 			</p>
 			<textarea name="catalog_page_css" rows="3" cols="30">
@@ -216,7 +216,26 @@ function catalog_page_option(){
 	<td><fb:like href="http://www.facebook.com/vincenzolarosa.it" send="false" layout="button_count" width="150" show_faces="false" font="verdana"></fb:like></td>
 	<td><?_e('Seguimi su twitter','catalog_page');?></td>
 	<td><a href="http://twitter.com/enzolarosa" class="twitter-follow-button" data-lang="it">Seguimi</a></td>
-	</tr></table></p>
+	</tr>
+	<tr>
+	<td><script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://netad.it/www/delivery/ajs.php':'http://netad.it/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=14");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://netad.it/www/delivery/ck.php?n=a9f4d9fd&amp;cb=57567' target='_blank'><img src='http://netad.it/www/delivery/avw.php?zoneid=14&amp;cb=91246356&amp;n=a9f4d9fd' border='0' alt='' /></a></noscript>
+</td>
+	</tr>
+	</table></p>
 </div>
 <?
 }
