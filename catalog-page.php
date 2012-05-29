@@ -4,7 +4,7 @@ Plugin Name: Catalog Page
 Plugin URI: http://wordpress.org/extend/plugins/catalog-page/
 Description: Crea facilmente la pagina per il tuo catalogo..
 Author: Vincenzo La Rosa
-Version: 1.1.2.1
+Version: 1.1.2.2
 Author URI: http://www.vincenzolarosa.it 
 */
 /*option default*/
@@ -53,8 +53,7 @@ function catalog_page_table(){
             $catalog_content=get_the_content('');
             /*----------------------------*/
             $text.="<tr><td rowspan='4'>".$catalog_img."</td></tr><tr><td>
-            <p align=\"center\"><b><a href=\"".$catalog_permalink."\" 
-            title=\"".$catalog_title."\">".$catalog_title."</a></b>
+            <p align=\"center\"><b><a href='".$catalog_permalink."'>".$catalog_title."</a></b>
             </p></td></tr><tr>
             <td><p align=\"left\">".$catalog_content."</p></td>
             </tr><tr>
