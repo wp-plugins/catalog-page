@@ -14,7 +14,7 @@ un catalogo con la lista dei prodotti e dei servizi che offri.
 
 Se hai dei suggerimenti per il plugin <a href="http://www.vincenzolarosa.it/1656-catalog-page.html" target="_blank">lascia un commento su questa pagina</a>.
 
-La demo del plugin la trovi su questa pagina <a href="http://g0t.pl/go/dd3vd" target="_blank">Catalog Page Demo</a>
+La demo del plugin la trovi su questa pagina <a href="http://www.vincenzolarosa.it/demo-catalog-page" target="_blank">Catalog Page Demo</a>
 
 
 == Installation ==
